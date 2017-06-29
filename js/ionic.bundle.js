@@ -7384,11 +7384,16 @@ ionic.scroll = {
 			  
 			  //Incorrect calculation.
               //scrollViewOffsetHeight = Math.max(0, Math.min(self.__originalContainerHeight, self.__originalContainerHeight - (e.detail.keyboardHeight - 43)));//keyboardOffset >= 0 ? scrollViewOffsetHeight - keyboardOffset : scrollViewOffsetHeight + keyboardOffset;
-
-			  scrollViewOffsetHeight = Math.max(0, Math.min(self.__originalContainerHeight, self.__originalContainerHeight - (e.detail.keyboardHeight - (window.innerHeight - rect.bottom))));
+              //container.style.height = scrollViewOffsetHeight + "px";
+			  
+			  if(ionic.Platform.isIOS()){
+                container.style.height = 'auto !important';
+              }else{
+                scrollViewOffsetHeight = Math.max(0, Math.min(self.__originalContainerHeight, self.__originalContainerHeight - (e.detail.keyboardHeight - (window.innerHeight - rect.bottom))));
+                container.style.height = scrollViewOffsetHeight + "px"
+              }
+			  
               //console.log('Old container height', self.__originalContainerHeight, 'New container height', scrollViewOffsetHeight, 'Keyboard height', e.detail.keyboardHeight);
-
-              container.style.height = scrollViewOffsetHeight + "px";
 
               /*
               if (ionic.Platform.isIOS()) {
